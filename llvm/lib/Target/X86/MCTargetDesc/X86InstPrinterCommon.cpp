@@ -294,9 +294,7 @@ void X86InstPrinterCommon::printRoundingControl(const MCInst *MI, unsigned Op,
 void X86InstPrinterCommon::printPCRelImm(const MCInst *MI, unsigned OpNo,
                                          raw_ostream &O) {
   const MCOperand &Op = MI->getOperand(OpNo);
-  if (Op.isImm())
-    O << formatImm(Op.getImm());
-  else {
+  if (!Op.isImm()) {
     assert(Op.isExpr() && "unknown pcrel immediate operand");
     // If a symbolic branch target was added as a constant expression then print
     // that address in hex.

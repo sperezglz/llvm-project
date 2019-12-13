@@ -1338,10 +1338,7 @@ void AArch64InstPrinter::printAlignedLabel(const MCInst *MI, unsigned OpNum,
                                            raw_ostream &O) {
   const MCOperand &Op = MI->getOperand(OpNum);
 
-  // If the label has already been resolved to an immediate offset (say, when
-  // we're running the disassembler), just print the immediate.
   if (Op.isImm()) {
-    O << "#" << formatImm(Op.getImm() * 4);
     return;
   }
 

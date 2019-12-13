@@ -1473,7 +1473,7 @@ static void disassembleObject(const Target *TheTarget, const ObjectFile *Obj,
               --TargetSym;
               uint64_t TargetAddress = std::get<0>(*TargetSym);
               StringRef TargetName = std::get<1>(*TargetSym);
-              outs() << " <" << TargetName;
+              outs() << Twine::utohexstr(Target) << " <" << TargetName;
               uint64_t Disp = Target - TargetAddress;
               if (Disp)
                 outs() << "+0x" << Twine::utohexstr(Disp);

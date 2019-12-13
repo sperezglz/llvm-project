@@ -313,9 +313,7 @@ void ARMInstPrinter::printOperand(const MCInst *MI, unsigned OpNo,
   if (Op.isReg()) {
     unsigned Reg = Op.getReg();
     printRegName(O, Reg);
-  } else if (Op.isImm()) {
-    O << markup("<imm:") << '#' << formatImm(Op.getImm()) << markup(">");
-  } else {
+  } else if (!Op.isImm()) {
     assert(Op.isExpr() && "unknown operand kind in printOperand");
     const MCExpr *Expr = Op.getExpr();
     switch (Expr->getKind()) {
