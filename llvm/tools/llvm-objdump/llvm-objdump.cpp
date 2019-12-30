@@ -337,6 +337,12 @@ static cl::alias WideShort("w", cl::Grouping, cl::aliasopt(Wide));
 static cl::extrahelp
     HelpResponse("\nPass @FILE as argument to read options from FILE.\n");
 
+cl::opt<bool>
+    PrintTargetAddress("print-tgt-addr",
+                       cl::desc("Print target address instead of immediate "
+                                "value in pc-rel branches and calls"),
+                       cl::cat(ObjdumpCat));
+
 static StringSet<> DisasmFuncsSet;
 static StringSet<> FoundSectionSet;
 static StringRef ToolName;
@@ -671,14 +677,14 @@ static bool hasMappingSymbols(const ObjectFile *Obj) {
 }
 
 static void printRelocation(StringRef FileName, const RelocationRef &Rel,
-                            uint64_t Address, bool Is64Bits) {
+                            uint64_t Address, bool Is64Bits, raw_ostream &OS) {
   StringRef Fmt = Is64Bits ? "\t\t%016" PRIx64 ":  " : "\t\t\t%08" PRIx64 ":  ";
   SmallString<16> Name;
   SmallString<32> Val;
   Rel.getTypeName(Name);
   if (Error E = getRelocationValueString(Rel, Val))
     reportError(std::move(E), FileName);
-  outs() << format(Fmt.data(), Address) << Name << "\t" << Val << "\n";
+  OS << format(Fmt.data(), Address) << Name << "\t" << Val << "\n";
 }
 
 class PrettyPrinter {
@@ -761,7 +767,7 @@ public:
     auto PrintReloc = [&]() -> void {
       while ((RelCur != RelEnd) && (RelCur->getOffset() <= Address.Address)) {
         if (RelCur->getOffset() == Address.Address) {
-          printRelocation(ObjectFilename, *RelCur, Address.Address, false);
+          printRelocation(ObjectFilename, *RelCur, Address.Address, false, OS);
           return;
         }
         ++RelCur;
@@ -1412,24 +1418,27 @@ static void disassembleObject(const Target *TheTarget, const ObjectFile *Obj,
         // Disassemble a real instruction or a data when disassemble all is
         // provided
         MCInst Inst;
+        SmallString<90> InstPrinterBuffer;
+        raw_svector_ostream InstPrintStream(InstPrinterBuffer);
         bool Disassembled = DisAsm->getInstruction(
             Inst, Size, Bytes.slice(Index), SectionAddr + Index, DebugOut,
             CommentStream);
         if (Size == 0)
           Size = 1;
 
-        PIP.printInst(*IP, Disassembled ? &Inst : nullptr,
-                      Bytes.slice(Index, Size),
-                      {SectionAddr + Index + VMAAdjustment, Section.getIndex()},
-                      outs(), "", *STI, &SP, Obj->getFileName(), &Rels);
-        outs() << CommentStream.str();
-        Comments.clear();
+        PIP.printInst(
+            *IP, Disassembled ? &Inst : nullptr, Bytes.slice(Index, Size),
+            {SectionAddr + Index + VMAAdjustment, Section.getIndex()},
+            InstPrintStream, "", *STI, &SP, Obj->getFileName(), &Rels);
 
         // Try to resolve the target of a call, tail call, etc. to a specific
         // symbol.
-        if (MIA && (MIA->isCall(Inst) || MIA->isUnconditionalBranch(Inst) ||
+        if (MIA && ((MIA->isCall(Inst) && !MIA->isIndirectCall(Inst)) ||
+                    MIA->isUnconditionalBranch(Inst) ||
                     MIA->isConditionalBranch(Inst))) {
           uint64_t Target;
+          SmallString<50> TargetSymbolDetails;
+          raw_svector_ostream SymbolDetailsStream(TargetSymbolDetails);
           if (MIA->evaluateBranch(Inst, SectionAddr + Index, Size, Target)) {
             // In a relocatable object, the target's section must reside in
             // the same section as the call instruction or it is accessed
@@ -1473,14 +1482,28 @@ static void disassembleObject(const Target *TheTarget, const ObjectFile *Obj,
               --TargetSym;
               uint64_t TargetAddress = std::get<0>(*TargetSym);
               StringRef TargetName = std::get<1>(*TargetSym);
-              outs() << " <" << TargetName;
+              SymbolDetailsStream << " <" << TargetName;
               uint64_t Disp = Target - TargetAddress;
               if (Disp)
-                outs() << "+0x" << Twine::utohexstr(Disp);
-              outs() << '>';
+                SymbolDetailsStream << "+0x" << Twine::utohexstr(Disp);
+              SymbolDetailsStream << '>';
             }
           }
+          if (PrintTargetAddress) {
+            auto splitInstStream = InstPrintStream.str().rsplit('\t');
+            outs() << splitInstStream.first << '\t' << Twine::utohexstr(Target)
+                   << CommentStream.str() << SymbolDetailsStream.str();
+          } else {
+            outs() << InstPrintStream.str() << CommentStream.str()
+                   << SymbolDetailsStream.str();
+          }
+          TargetSymbolDetails.clear();
+        } else {
+          outs() << InstPrintStream.str() << CommentStream.str();
         }
+
+        Comments.clear();
+        InstPrinterBuffer.clear();
         outs() << "\n";
 
         // Hexagon does this in pretty printer
@@ -1508,7 +1531,7 @@ static void disassembleObject(const Target *TheTarget, const ObjectFile *Obj,
             }
 
             printRelocation(Obj->getFileName(), *RelCur, SectionAddr + Offset,
-                            Is64Bits);
+                            Is64Bits, outs());
             ++RelCur;
           }
         }

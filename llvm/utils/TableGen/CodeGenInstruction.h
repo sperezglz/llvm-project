@@ -244,6 +244,7 @@ template <typename T> class ArrayRef;
     bool isSelect : 1;
     bool isBarrier : 1;
     bool isCall : 1;
+    bool isIndirectCall : 1;
     bool isAdd : 1;
     bool isTrap : 1;
     bool canFoldAsLoad : 1;

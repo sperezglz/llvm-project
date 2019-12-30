@@ -108,6 +108,7 @@ void EmitInstrDocs(RecordKeeper &RK, raw_ostream &OS) {
     FLAG(isSelect)
     FLAG(isBarrier)
     FLAG(isCall)
+    FLAG(isIndirectCall)
     FLAG(isAdd)
     FLAG(isTrap)
     FLAG(canFoldAsLoad)

@@ -509,6 +509,7 @@ class Instruction : InstructionEncoding {
   bit isSelect     = 0;     // Is this instruction a select instruction?
   bit isBarrier    = 0;     // Can control flow fall through this instruction?
   bit isCall       = 0;     // Is this instruction a call instruction?
+  bit isIndirectCall = 0;   // Is this instruction an indirect call?
   bit isAdd        = 0;     // Is this instruction an add instruction?
   bit isTrap       = 0;     // Is this instruction a trap instruction?
   bit canFoldAsLoad = 0;    // Can this be folded as a simple memory operand?

@@ -168,6 +168,7 @@ enum Flag {
   Add,
   Trap,
   VariadicOpsAreDefs,
+  IndirectCall,
 };
 }
 
@@ -275,6 +276,9 @@ public:
 
   ///  Return true if the instruction is a call.
   bool isCall() const { return Flags & (1ULL << MCID::Call); }
+
+  /// Return true if this is an indirect call
+  bool isIndirectCall() const { return Flags & (1ULL << MCID::IndirectCall); }
 
   /// Returns true if the specified instruction stops control flow
   /// from executing the instruction immediately following it.  Examples include

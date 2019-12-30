@@ -375,6 +375,7 @@ CodeGenInstruction::CodeGenInstruction(Record *R)
   isSelect     = R->getValueAsBit("isSelect");
   isBarrier    = R->getValueAsBit("isBarrier");
   isCall       = R->getValueAsBit("isCall");
+  isIndirectCall = R->getValueAsBit("isIndirectCall");
   isAdd        = R->getValueAsBit("isAdd");
   isTrap       = R->getValueAsBit("isTrap");
   canFoldAsLoad = R->getValueAsBit("canFoldAsLoad");

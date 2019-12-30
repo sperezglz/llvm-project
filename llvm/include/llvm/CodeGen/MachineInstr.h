@@ -683,6 +683,11 @@ public:
     return hasProperty(MCID::Call, Type);
   }
 
+  /// Return true if this is an indirect call
+  bool isIndirectCall(QueryType Type = AnyInBundle) const {
+    return hasProperty(MCID::IndirectCall, Type);
+  }
+
   /// Returns true if the specified instruction stops control flow
   /// from executing the instruction immediately following it.  Examples include
   /// unconditional branches and return instructions.

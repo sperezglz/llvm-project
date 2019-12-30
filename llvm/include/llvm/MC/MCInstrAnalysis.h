@@ -54,6 +54,10 @@ public:
     return Info->get(Inst.getOpcode()).isCall();
   }
 
+  virtual bool isIndirectCall(const MCInst &Inst) const {
+    return Info->get(Inst.getOpcode()).isIndirectCall();
+  }
+
   virtual bool isReturn(const MCInst &Inst) const {
     return Info->get(Inst.getOpcode()).isReturn();
   }
