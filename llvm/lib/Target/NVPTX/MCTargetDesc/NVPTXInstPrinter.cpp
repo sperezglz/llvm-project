@@ -72,7 +72,7 @@ void NVPTXInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << VReg;
 }
 
-void NVPTXInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void NVPTXInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                  StringRef Annot, const MCSubtargetInfo &STI,
                                  raw_ostream &OS) {
   printInstruction(MI, Address, OS);

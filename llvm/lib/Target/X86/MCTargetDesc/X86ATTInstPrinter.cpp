@@ -38,7 +38,7 @@ void X86ATTInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << markup("<reg:") << '%' << getRegisterName(RegNo) << markup(">");
 }
 
-void X86ATTInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void X86ATTInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size
                                   StringRef Annot, const MCSubtargetInfo &STI,
                                   raw_ostream &OS) {
   // If verbose assembly is enabled, we can print some informative comments.

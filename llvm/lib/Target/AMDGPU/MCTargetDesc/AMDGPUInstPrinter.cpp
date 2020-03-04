@@ -30,7 +30,7 @@ void AMDGPUInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << getRegisterName(RegNo);
 }
 
-void AMDGPUInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void AMDGPUInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                   StringRef Annot, const MCSubtargetInfo &STI,
                                   raw_ostream &OS) {
   OS.flush();
@@ -1352,7 +1352,7 @@ void AMDGPUInstPrinter::printEndpgm(const MCInst *MI, unsigned OpNo,
 
 #include "AMDGPUGenAsmWriter.inc"
 
-void R600InstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void R600InstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                 StringRef Annot, const MCSubtargetInfo &STI,
                                 raw_ostream &O) {
   O.flush();

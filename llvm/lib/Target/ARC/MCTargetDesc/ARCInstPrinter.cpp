@@ -97,7 +97,7 @@ void ARCInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << StringRef(getRegisterName(RegNo)).lower();
 }
 
-void ARCInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void ARCInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                StringRef Annot, const MCSubtargetInfo &STI,
                                raw_ostream &O) {
   printInstruction(MI, Address, O);

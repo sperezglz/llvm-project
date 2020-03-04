@@ -29,7 +29,7 @@ public:
   static const char *getPrettyRegisterName(unsigned RegNo,
                                            MCRegisterInfo const &MRI);
 
-  void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &O) override;
 
 private:

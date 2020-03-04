@@ -138,7 +138,8 @@ bool LanaiInstPrinter::printAlias(const MCInst *MI, raw_ostream &OS) {
 }
 
 void LanaiInstPrinter::printInst(const MCInst *MI, uint64_t Address,
-                                 StringRef Annotation,
+                                 size_t Size,
+		                 StringRef Annotation,
                                  const MCSubtargetInfo & /*STI*/,
                                  raw_ostream &OS) {
   if (!printAlias(MI, OS) && !printAliasInstr(MI, OS))

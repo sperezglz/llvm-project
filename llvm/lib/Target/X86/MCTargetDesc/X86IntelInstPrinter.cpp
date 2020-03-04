@@ -36,7 +36,7 @@ void X86IntelInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << getRegisterName(RegNo);
 }
 
-void X86IntelInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void X86IntelInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                     StringRef Annot, const MCSubtargetInfo &STI,
                                     raw_ostream &OS) {
   printInstFlags(MI, OS);

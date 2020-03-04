@@ -75,7 +75,7 @@ void MipsInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << '$' << StringRef(getRegisterName(RegNo)).lower();
 }
 
-void MipsInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void MipsInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                 StringRef Annot, const MCSubtargetInfo &STI,
                                 raw_ostream &O) {
   switch (MI->getOpcode()) {

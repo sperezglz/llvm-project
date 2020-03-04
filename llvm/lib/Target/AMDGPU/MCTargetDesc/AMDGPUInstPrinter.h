@@ -28,7 +28,7 @@ public:
                         const MCSubtargetInfo &STI, raw_ostream &O);
   static const char *getRegisterName(unsigned RegNo);
 
-  void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &O) override;
   static void printRegOperand(unsigned RegNo, raw_ostream &O,
                               const MCRegisterInfo &MRI);
@@ -243,7 +243,7 @@ public:
                   const MCRegisterInfo &MRI)
     : MCInstPrinter(MAI, MII, MRI) {}
 
-  void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &O) override;
   void printInstruction(const MCInst *MI, uint64_t Address, raw_ostream &O);
   static const char *getRegisterName(unsigned RegNo);

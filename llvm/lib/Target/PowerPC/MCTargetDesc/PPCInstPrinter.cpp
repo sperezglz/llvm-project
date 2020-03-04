@@ -64,7 +64,7 @@ void PPCInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << RegName;
 }
 
-void PPCInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void PPCInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                StringRef Annot, const MCSubtargetInfo &STI,
                                raw_ostream &O) {
   // Customize printing of the addis instruction on AIX. When an operand is a

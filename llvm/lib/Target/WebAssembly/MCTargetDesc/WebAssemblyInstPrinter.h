@@ -37,7 +37,7 @@ public:
                          const MCRegisterInfo &MRI);
 
   void printRegName(raw_ostream &OS, unsigned RegNo) const override;
-  void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &OS) override;
 
   // Used by tblegen code.

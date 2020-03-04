@@ -24,7 +24,7 @@ using namespace llvm;
 // Include the auto-generated portion of the assembly writer.
 #include "BPFGenAsmWriter.inc"
 
-void BPFInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void BPFInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                StringRef Annot, const MCSubtargetInfo &STI,
                                raw_ostream &O) {
   printInstruction(MI, Address, O);

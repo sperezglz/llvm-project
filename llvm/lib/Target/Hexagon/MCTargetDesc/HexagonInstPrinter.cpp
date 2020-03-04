@@ -30,7 +30,7 @@ void HexagonInstPrinter::printRegName(raw_ostream &O, unsigned RegNo) const {
   O << getRegisterName(RegNo);
 }
 
-void HexagonInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void HexagonInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                    StringRef Annot, const MCSubtargetInfo &STI,
                                    raw_ostream &OS) {
   assert(HexagonMCInstrInfo::isBundle(*MI));

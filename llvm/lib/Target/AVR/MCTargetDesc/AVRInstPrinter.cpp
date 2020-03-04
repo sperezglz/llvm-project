@@ -32,7 +32,7 @@ namespace llvm {
 #define PRINT_ALIAS_INSTR
 #include "AVRGenAsmWriter.inc"
 
-void AVRInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void AVRInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                StringRef Annot, const MCSubtargetInfo &STI,
                                raw_ostream &O) {
   unsigned Opcode = MI->getOpcode();

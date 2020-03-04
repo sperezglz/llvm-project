@@ -39,7 +39,7 @@ void VEInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << '%' << StringRef(getRegisterName(RegNo)).lower();
 }
 
-void VEInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void VEInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                               StringRef Annot, const MCSubtargetInfo &STI,
                               raw_ostream &OS) {
   if (!printAliasInstr(MI, STI, OS))

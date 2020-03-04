@@ -30,7 +30,7 @@ public:
   static const char *getRegisterName(unsigned RegNo);
 
   void printRegName(raw_ostream &OS, unsigned RegNo) const override;
-  void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &O) override;
 
 private:

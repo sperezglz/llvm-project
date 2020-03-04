@@ -25,7 +25,7 @@ public:
   AArch64InstPrinter(const MCAsmInfo &MAI, const MCInstrInfo &MII,
                      const MCRegisterInfo &MRI);
 
-  void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &O) override;
   void printRegName(raw_ostream &OS, unsigned RegNo) const override;
 
@@ -200,7 +200,7 @@ public:
   AArch64AppleInstPrinter(const MCAsmInfo &MAI, const MCInstrInfo &MII,
                           const MCRegisterInfo &MRI);
 
-  void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &O) override;
 
   void printInstruction(const MCInst *MI, uint64_t Address,

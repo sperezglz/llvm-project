@@ -344,7 +344,7 @@ void AMDGPUAsmPrinter::emitInstruction(const MachineInstr *MI) {
 
       AMDGPUInstPrinter InstPrinter(*TM.getMCAsmInfo(), *STI.getInstrInfo(),
                                     *STI.getRegisterInfo());
-      InstPrinter.printInst(&TmpInst, 0, StringRef(), STI, DisasmStream);
+      InstPrinter.printInst(&TmpInst, 0, 0, StringRef(), STI, DisasmStream);
 
       // Disassemble instruction/operands to hex representation.
       SmallVector<MCFixup, 4> Fixups;

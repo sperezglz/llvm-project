@@ -63,7 +63,7 @@ bool RISCVInstPrinter::applyTargetSpecificCLOption(StringRef Opt) {
   return false;
 }
 
-void RISCVInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void RISCVInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                  StringRef Annot, const MCSubtargetInfo &STI,
                                  raw_ostream &O) {
   bool Res = false;

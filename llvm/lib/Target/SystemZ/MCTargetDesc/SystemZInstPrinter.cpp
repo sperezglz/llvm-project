@@ -55,7 +55,7 @@ void SystemZInstPrinter::printOperand(const MCOperand &MO, const MCAsmInfo *MAI,
     llvm_unreachable("Invalid operand");
 }
 
-void SystemZInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void SystemZInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                    StringRef Annot, const MCSubtargetInfo &STI,
                                    raw_ostream &O) {
   printInstruction(MI, Address, O);

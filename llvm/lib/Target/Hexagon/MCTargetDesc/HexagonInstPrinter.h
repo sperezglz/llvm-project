@@ -28,7 +28,7 @@ public:
                               MCRegisterInfo const &MRI)
     : MCInstPrinter(MAI, MII, MRI), MII(MII) {}
 
-  void printInst(MCInst const *MI, uint64_t Address, StringRef Annot,
+  void printInst(MCInst const *MI, uint64_t Address, size_t Size, StringRef Annot,
                  const MCSubtargetInfo &STI, raw_ostream &O) override;
   void printRegName(raw_ostream &O, unsigned RegNo) const override;
 

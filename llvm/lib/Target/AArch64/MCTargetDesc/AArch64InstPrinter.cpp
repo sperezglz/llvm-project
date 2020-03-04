@@ -56,7 +56,7 @@ void AArch64InstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {
   OS << getRegisterName(RegNo);
 }
 
-void AArch64InstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void AArch64InstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                    StringRef Annot, const MCSubtargetInfo &STI,
                                    raw_ostream &O) {
   // Check for special encodings and print the canonical alias instead.
@@ -704,7 +704,7 @@ static const LdStNInstrDesc *getLdStNInstrDesc(unsigned Opcode) {
   return nullptr;
 }
 
-void AArch64AppleInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void AArch64AppleInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                         StringRef Annot,
                                         const MCSubtargetInfo &STI,
                                         raw_ostream &O) {

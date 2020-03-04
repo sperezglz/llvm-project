@@ -43,7 +43,7 @@ void SparcInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const
   OS << '%' << StringRef(getRegisterName(RegNo)).lower();
 }
 
-void SparcInstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void SparcInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                  StringRef Annot, const MCSubtargetInfo &STI,
                                  raw_ostream &O) {
   if (!printAliasInstr(MI, STI, O) && !printSparcAliasInstr(MI, STI, O))

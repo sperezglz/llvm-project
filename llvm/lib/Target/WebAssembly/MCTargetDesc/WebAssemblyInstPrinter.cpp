@@ -45,7 +45,7 @@ void WebAssemblyInstPrinter::printRegName(raw_ostream &OS,
 }
 
 void WebAssemblyInstPrinter::printInst(const MCInst *MI, uint64_t Address,
-                                       StringRef Annot,
+                                       size_t Size, StringRef Annot,
                                        const MCSubtargetInfo &STI,
                                        raw_ostream &OS) {
   // Print the instruction (this uses the AsmStrings from the .td files).

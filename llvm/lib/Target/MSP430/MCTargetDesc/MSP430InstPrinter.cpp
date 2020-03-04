@@ -26,7 +26,7 @@ using namespace llvm;
 #define PRINT_ALIAS_INSTR
 #include "MSP430GenAsmWriter.inc"
 
-void MSP430InstPrinter::printInst(const MCInst *MI, uint64_t Address,
+void MSP430InstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                   StringRef Annot, const MCSubtargetInfo &STI,
                                   raw_ostream &O) {
   if (!printAliasInstr(MI, O))

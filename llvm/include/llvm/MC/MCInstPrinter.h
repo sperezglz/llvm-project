@@ -79,7 +79,7 @@ public:
   void setCommentStream(raw_ostream &OS) { CommentStream = &OS; }
 
   /// Print the specified MCInst to the specified raw_ostream.
-  virtual void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
+  virtual void printInst(const MCInst *MI, uint64_t Address, size_t Size, StringRef Annot,
                          const MCSubtargetInfo &STI, raw_ostream &OS) = 0;
 
   /// Return the name of the specified opcode enum (e.g. "MOV32ri") or
