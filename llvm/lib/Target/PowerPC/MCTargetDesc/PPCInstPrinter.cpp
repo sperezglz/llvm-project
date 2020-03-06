@@ -194,7 +194,7 @@ void PPCInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
   }
 
   if (!printAliasInstr(MI, O))
-    printInstruction(MI, Address, O);
+    printInstruction(MI, Address, 0, O);
   printAnnotation(O, Annot);
 }
 

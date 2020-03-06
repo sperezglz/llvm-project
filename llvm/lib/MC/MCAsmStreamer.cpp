@@ -1971,7 +1971,7 @@ void MCAsmStreamer::emitInstruction(const MCInst &Inst,
   if(getTargetStreamer())
     getTargetStreamer()->prettyPrintAsm(*InstPrinter, 0, Inst, STI, OS);
   else
-    InstPrinter->printInst(&Inst, 0, "", STI, OS);
+    InstPrinter->printInst(&Inst, 0, 0, "", STI, OS);
 
   StringRef Comments = CommentToEmit;
   if (Comments.size() && Comments.back() != '\n')

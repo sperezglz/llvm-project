@@ -276,7 +276,7 @@ void ARMInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
       // Copy the rest operands into NewMI.
       for (unsigned i = isStore ? 3 : 2; i < MI->getNumOperands(); ++i)
         NewMI.addOperand(MI->getOperand(i));
-      printInstruction(&NewMI, Address, STI, O);
+      printInstruction(&NewMI, Address, 0, STI, O);
       return;
     }
     break;
@@ -289,7 +289,7 @@ void ARMInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
     switch (MI->getOperand(0).getImm()) {
     default:
       if (!printAliasInstr(MI, STI, O))
-        printInstruction(MI, Address, STI, O);
+        printInstruction(MI, Address, 0, STI, O);
       break;
     case 0:
       O << "\tssbb";
@@ -303,7 +303,7 @@ void ARMInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
   }
 
   if (!printAliasInstr(MI, STI, O))
-    printInstruction(MI, Address, STI, O);
+    printInstruction(MI, Address, 0, STI, O);
 
   printAnnotation(O, Annot);
 }

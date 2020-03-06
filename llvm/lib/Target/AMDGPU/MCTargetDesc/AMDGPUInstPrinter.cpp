@@ -34,7 +34,7 @@ void AMDGPUInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Siz
                                   StringRef Annot, const MCSubtargetInfo &STI,
                                   raw_ostream &OS) {
   OS.flush();
-  printInstruction(MI, Address, STI, OS);
+  printInstruction(MI, Address, 0, STI, OS);
   printAnnotation(OS, Annot);
 }
 

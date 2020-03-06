@@ -280,7 +280,7 @@ void AsmWriterEmitter::EmitPrintInstruction(raw_ostream &O) {
        "/// from the instruction set description.\n"
        "void "
     << Target.getName() << ClassName
-    << "::printInstruction(const MCInst *MI, uint64_t Address, "
+    << "::printInstruction(const MCInst *MI, uint64_t Address, size_t Size,"
     << (PassSubtarget ? "const MCSubtargetInfo &STI, " : "")
     << "raw_ostream &O) {\n";
 

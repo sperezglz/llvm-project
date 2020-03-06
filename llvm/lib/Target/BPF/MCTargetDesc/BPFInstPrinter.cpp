@@ -27,7 +27,7 @@ using namespace llvm;
 void BPFInstPrinter::printInst(const MCInst *MI, uint64_t Address, size_t Size,
                                StringRef Annot, const MCSubtargetInfo &STI,
                                raw_ostream &O) {
-  printInstruction(MI, Address, O);
+  printInstruction(MI, Address, 0, O);
   printAnnotation(O, Annot);
 }
 

@@ -291,19 +291,22 @@ void X86InstPrinterCommon::printRoundingControl(const MCInst *MI, unsigned Op,
 /// being encoded as a pc-relative value (e.g. for jumps and calls).  In
 /// Intel-style these print slightly differently than normal immediates.
 /// for example, a $ is not emitted.
-void X86InstPrinterCommon::printPCRelImm(const MCInst *MI, unsigned OpNo,
+void X86InstPrinterCommon::printPCRelImm(const MCInst *MI, uint64_t Address, size_t Size, unsigned OpNo,
                                          raw_ostream &O) {
   const MCOperand &Op = MI->getOperand(OpNo);
   if (Op.isImm())
-    O << formatImm(Op.getImm());
+   int64_t target = 0;
+   if ((int64_t)Address.Address >= Op.getImm())
+       target = (int64_t)Address.Address + (int64_t)Size + Op.getImm();
+   O << formatHex((uint64_t)target);
   else {
     assert(Op.isExpr() && "unknown pcrel immediate operand");
     // If a symbolic branch target was added as a constant expression then print
     // that address in hex.
     const MCConstantExpr *BranchTarget = dyn_cast<MCConstantExpr>(Op.getExpr());
-    int64_t Address;
-    if (BranchTarget && BranchTarget->evaluateAsAbsolute(Address)) {
-      O << formatHex((uint64_t)Address);
+    int64_t Addr;
+    if (BranchTarget && BranchTarget->evaluateAsAbsolute(Addr)) {
+      O << formatHex((uint64_t)Addr);
     } else {
       // Otherwise, just print the expression.
       Op.getExpr()->print(O, &MAI);

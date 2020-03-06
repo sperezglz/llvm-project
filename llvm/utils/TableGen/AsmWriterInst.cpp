@@ -36,6 +36,8 @@ std::string AsmWriterOperand::getCode(bool PassSubtarget) const {
     return Str;
 
   std::string Result = Str + "(MI";
+  if (Str.compare("printPCRelImm") == 0)
+    Result += ", Address, Size,";
   if (MIOpNo != ~0U)
     Result += ", " + utostr(MIOpNo);
   if (PassSubtarget)

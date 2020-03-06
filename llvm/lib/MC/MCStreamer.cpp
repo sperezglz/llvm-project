@@ -977,7 +977,7 @@ void MCTargetStreamer::prettyPrintAsm(MCInstPrinter &InstPrinter,
                                       uint64_t Address, const MCInst &Inst,
                                       const MCSubtargetInfo &STI,
                                       raw_ostream &OS) {
-  InstPrinter.printInst(&Inst, Address, "", STI, OS);
+  InstPrinter.printInst(&Inst, Address, 0, "", STI, OS);
 }
 
 void MCStreamer::visitUsedSymbol(const MCSymbol &Sym) {
